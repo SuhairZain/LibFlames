@@ -110,13 +110,28 @@ int main()
     cout<<"result() returns the actual result, the index of the option, or -1 in case of an error\n";
     cout<<"@param FirstName, @param SecondName - Convenience function, uses FLAMES(6) by default\n";
     cout<<"@param FirstName, @param SecondName, @param @nOptions - Use this if you want to use a non-default number of options\n";
-    cout<<"This example calls calulate() with the names \"Suhair\" and \"Rahul\" whose result is 0, indicating Friend in FLAMES\n";
+    cout<<"This example calls calculate() with the names \"Suhair\" and \"Rahul\" whose result is 0, indicating Friend in FLAMES\n";
 
 
     LibFlames::Flames flamesChecker;
 
     //Returns 0, meaning that the calculation was a success and we can proceed to display the results
-    cout<<"\n\nCalculation status: "<<flamesChecker.calculate("Suhair", "Rahul");
+    cout<<"\n\nCalculation status: ";
+    switch(flamesChecker.calculate("Suhair", "Rahul"))
+    {
+    case LibFlames::FlamesStatus::Success:
+        cout<<"Success";
+        break;
+    case LibFlames::FlamesStatus::PerfectMatch:
+        cout<<"It is a perfect match";
+        break;
+    case LibFlames::FlamesStatus::NameEmptyError:
+        cout<<"One or both of the names were empty";
+        break;
+    case LibFlames::FlamesStatus::NoOptionsError:
+        cout<<"There must be at least one possible relation";
+        break;
+    }
 
     //The actual result, which is 0, indicating F for Friend in FLAMES
     cout<<"\nThe result is: "<<flamesChecker.result();
